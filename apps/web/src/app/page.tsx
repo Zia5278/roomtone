@@ -31,7 +31,7 @@ export default function Home() {
             <span className="grid size-10 place-items-center rounded-lg bg-primary text-primary-foreground">
               <Radio className="size-5" />
             </span>
-            <span className="text-lg font-semibold tracking-tight">RoomTone</span>
+            <span className="font-serif text-lg font-semibold tracking-tight">RoomTone</span>
           </div>
           <Badge variant="secondary">
             <Radio className="size-5" />
@@ -45,7 +45,7 @@ export default function Home() {
               <Headphones className="size-4" />
               Drop in. Speak freely. Stay awhile.
             </p>
-            <h1 className="text-balance text-5xl font-semibold leading-[0.98] tracking-[-0.05em] sm:text-6xl lg:text-7xl">
+            <h1 className="font-serif text-balance text-5xl font-semibold leading-[0.98] tracking-[-0.05em] sm:text-6xl lg:text-7xl">
               The room where
               <span className="text-primary"> voices connect.</span>
             </h1>

@@ -19,7 +19,7 @@ export default async function RoomPage({
             <span className="grid size-10 place-items-center rounded-lg bg-primary text-primary-foreground">
               <Radio className="size-5" />
             </span>
-            <span className="text-lg font-semibold tracking-tight">RoomTone</span>
+            <span className="font-serif text-lg font-semibold tracking-tight">RoomTone</span>
           </Link>
           <Button asChild variant="ghost">
             <Link href="/">

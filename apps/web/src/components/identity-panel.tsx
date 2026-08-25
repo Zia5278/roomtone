@@ -113,7 +113,7 @@ function RestoredIdentity({ session }: { session: SessionResponse }) {
               {bothReady ? "Ready to host" : "Preparing your session"}
             </p>
           </div>
-          {bothReady ? <Check className="size-4 text-[#23a559]" /> : null}
+          {bothReady ? <Check className="size-4 text-muted-foreground" /> : null}
         </div>
 
         <div className="grid grid-cols-2 gap-3" aria-live="polite">
@@ -147,7 +147,7 @@ function RestoredIdentity({ session }: { session: SessionResponse }) {
                     service.status === "connecting"
                       ? "size-4 animate-spin text-muted-foreground"
                       : service.status === "ready"
-                        ? "size-4 text-[#23a559]"
+                        ? "size-4 text-muted-foreground"
                         : "size-4 text-destructive"
                   }
                 />

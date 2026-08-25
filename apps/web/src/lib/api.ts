@@ -19,6 +19,38 @@ export type ReadinessResponse = {
   database: "ok";
 };
 
+export type AvatarColor = "coral" | "blue" | "green" | "purple" | "gold";
+
+export type User = {
+  id: string;
+  display_name: string;
+  avatar_color: AvatarColor;
+};
+
+export type SessionResponse = {
+  user: User;
+};
+
+export type StreamTokenResponse = {
+  api_key: string;
+  token: string;
+  expires_in: number;
+  user: User;
+};
+
+export type RoomStatus = "backstage" | "live" | "ended";
+
+export type Room = {
+  id: string;
+  title: string;
+  status: RoomStatus;
+  host: User;
+  is_host: boolean;
+  created_at: string;
+  went_live_at: string | null;
+  ended_at: string | null;
+};
+
 export async function apiRequest<T>(
   path: string,
   init: RequestInit = {},
@@ -56,4 +88,38 @@ export function getHealth() {
 
 export function getReadiness() {
   return apiRequest<ReadinessResponse>("/health/ready");
+}
+
+export function getCurrentSession() {
+  return apiRequest<SessionResponse>("/v1/sessions/me");
+}
+
+export function createSession(displayName: string) {
+  return apiRequest<SessionResponse>("/v1/sessions", {
+    method: "POST",
+    body: JSON.stringify({ display_name: displayName }),
+  });
+}
+
+export function createStreamToken() {
+  return apiRequest<StreamTokenResponse>("/v1/stream-token", {
+    method: "POST",
+  });
+}
+
+export function createRoom(title: string) {
+  return apiRequest<Room>("/v1/rooms", {
+    method: "POST",
+    body: JSON.stringify({ title }),
+  });
+}
+
+export function getRoom(roomId: string) {
+  return apiRequest<Room>(`/v1/rooms/${roomId}`);
+}
+
+export function goLive(roomId: string) {
+  return apiRequest<Room>(`/v1/rooms/${roomId}/live`, {
+    method: "POST",
+  });
 }

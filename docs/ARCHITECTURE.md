@@ -34,11 +34,11 @@ This separation keeps Python meaningful without trying to proxy audio or chat th
 
 ## Identity and token flow
 
-1. The browser submits a display name and avatar choice to `POST /v1/sessions`.
-2. FastAPI creates a random user ID and an opaque application session stored in PostgreSQL.
+1. The browser submits a display name to `POST /v1/sessions`.
+2. FastAPI creates a random user ID, assigns avatar metadata, and stores an opaque application session in PostgreSQL.
 3. FastAPI returns the session ID in an HTTP-only cookie that the browser sends automatically on later API requests.
 4. An authenticated token endpoint resolves the session, upserts exactly that user in Stream, and mints a short-lived Stream token.
-5. The same `id`, `name`, and `image` initialize both Stream Video and Stream Chat.
+5. The same ID, name, and avatar metadata initialize both Stream Video and Stream Chat.
 
 The browser never chooses its authoritative user ID or Stream role. `STREAM_API_SECRET` is read only by FastAPI. The public API key and expiring user token are safe browser inputs. Stream token providers use the application session to obtain replacements without exposing the Stream secret.
 
@@ -104,7 +104,7 @@ These boundaries let unit tests use a fake Stream gateway, which makes failure c
 
 - App routes own page-level loading and navigation.
 - Session code owns identity persistence and token refresh.
-- A room provider creates and cleans up the Video and Chat clients exactly once per identity/room.
+- A Stream client provider creates and cleans up the Video and Chat clients exactly once per identity. Room-level providers will reuse those clients instead of opening duplicate connections.
 - A typed API module owns HTTP details; TanStack Query owns REST request state and metadata caching.
 - Feature components render room states and invoke typed actions.
 - Stream SDK hooks remain the source of realtime participants, audio, and messages; that state is not duplicated in TanStack Query.

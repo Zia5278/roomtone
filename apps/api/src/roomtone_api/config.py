@@ -1,7 +1,7 @@
 from functools import lru_cache
 from typing import Literal
 
-from pydantic import SecretStr
+from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -18,8 +18,16 @@ class Settings(BaseSettings):
     app_environment: Literal["development", "test", "production"] = "development"
     database_url: str = "postgresql+psycopg://roomtone:roomtone@localhost:5432/roomtone"
     web_origin: str = "http://localhost:3000"
+    session_cookie_name: str = "roomtone_session"
+    session_ttl_days: int = Field(default=7, ge=1, le=30)
+    cookie_secure: bool = False
     stream_api_key: str = ""
     stream_api_secret: SecretStr = SecretStr("")
+    stream_token_ttl_seconds: int = Field(default=3600, ge=300, le=86400)
+
+    @property
+    def stream_is_configured(self) -> bool:
+        return bool(self.stream_api_key and self.stream_api_secret.get_secret_value())
 
 
 @lru_cache

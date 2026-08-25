@@ -1,0 +1,44 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local agent and workspace state
+.claude/settings.local.json
+CLAUDE.local.md
+WORKSPACE.local.md
+.codex/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+dist/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Test and coverage output
+coverage/
+htmlcov/
+playwright-report/
+test-results/
+
+# Local hosting CLI state
+.railway/
+
+# Editors and OS
+.DS_Store
+.idea/
+.vscode/
